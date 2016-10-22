@@ -6,7 +6,7 @@ import GoogleMap from '../components/map';
 class WeatherList extends Component {
   renderWeather(cityData){
     const name = cityData.city.name;
-    const temps = cityData.list.map(weather => weather.main.temp);
+    const temps = cityData.list.map(weather => weather.main.temp - 273.15);
     const pressures = cityData.list.map(weather => weather.main.pressure);
     const humidities = cityData.list.map(weather => weather.main.humidity);
     const { lon, lat } = cityData.city.coord;//magic ES6 happening
@@ -14,7 +14,7 @@ class WeatherList extends Component {
     return (
       <tr key={name}>
         <td><GoogleMap lon={lon} lat={lat}/></td>
-        <td width="25%"><Chart data={temps} color="orange" units="K" /></td>
+        <td width="25%"><Chart data={temps} color="orange" units="°C" /></td>
         <td width="25%"><Chart data={pressures} color="blue" units="hPa"/></td>
         <td width="25%"><Chart data={humidities} color="pink" units="%"/></td>
       </tr>
